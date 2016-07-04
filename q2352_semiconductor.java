@@ -6,20 +6,18 @@ public class q2352_semiconductor {
 		
 		int num = scan.nextInt();
 		int[] port = new int[num];
-		int count = num;
-		int[] twist = new int[num];	//²¿ÀÎ ¼±ÀÇ °³¼ö
-		int[] compare = new int[num]; //Á¡°ú ¼±ÅÃÇÑ Á¡°úÀÇ °Å¸®
+		int count = 0;
+		int[] twist = new int[num];	//ê¼¬ì¸ ì„ ì˜ ê°œìˆ˜
+		int[] compare = new int[num]; //ì ê³¼ ì„ íƒí•œ ì ê³¼ì˜ ê±°ë¦¬
 		int bigTwist = 0;
 		int check = 0;
 		int bigSize = 0;
 		
-		int cnt = 0;
-		
-		for(int i=0; i<num ; i++){			//°¢ Æ÷Æ®°¡ ¸î¹ø Æ÷Æ®¸¦ °¡¸®Å°´ÂÁö ÀÔ·Â
+		for(int i=0; i<num ; i++){			//ê° í¬íŠ¸ê°€ ëª‡ë²ˆ í¬íŠ¸ë¥¼ ê°€ë¦¬í‚¤ëŠ”ì§€ ì…ë ¥
 			port[i] = scan.nextInt();
 		}
 		
-		for(int i=0; i<num ; i++){	//Á¡°ú ¼±ÅÃÇÑ Á¡°úÀÇ °Å¸® ¾Ë¾Æ³»±â.
+		for(int i=0; i<num ; i++){	//ì ê³¼ ì„ íƒí•œ ì ê³¼ì˜ ê±°ë¦¬ ì•Œì•„ë‚´ê¸°.
 			if(i+1>port[i]){
 				compare[i] = (i+1)-port[i];
 			}
@@ -31,7 +29,7 @@ public class q2352_semiconductor {
 			}
 		}
 		
-		for(int std=0 ; std<num ; std++){	//°¢ Á¡ ¸¶´Ù ²¿ÀÎ ¼±ÀÇ °³¼ö ¾Ë¾Æ³»±â.
+		for(int std=0 ; std<num ; std++){	//ê° ì  ë§ˆë‹¤ ê¼¬ì¸ ì„ ì˜ ê°œìˆ˜ ì•Œì•„ë‚´ê¸°.
 			for(int target=0 ; target<num ; target++){
 				if(target==std){
 					continue;
@@ -43,12 +41,13 @@ public class q2352_semiconductor {
 		}
 		
 
+		
 		while(true){
 			check = 0;
 			
 			bigSize = 0;
 			
-			for(int i=0; i<num ; i++){	//bigTwist ÃÊ±âÈ­
+			for(int i=0; i<num ; i++){	//bigTwist ì´ˆê¸°í™”
 				if(twist[i] == num+10){
 					continue;
 				}
@@ -61,7 +60,7 @@ public class q2352_semiconductor {
 				}
 			}
 			
-			for(int i=0; i<num ; i++){	//²¿ÀÎ¼±ÀÌ °¡Àå ¸¹Àº ¼± ±¸ÇÏ±â. (¸¸¾à °°´Ù¸é µÎ Á¡»çÀÌ °Å¸®°¡ ¸Õ °ÍÀ» ¸ÕÀú Ã¤ÅÃ)
+			for(int i=0; i<num ; i++){	//ê¼¬ì¸ì„ ì´ ê°€ì¥ ë§ì€ ì„  êµ¬í•˜ê¸°. (ë§Œì•½ ê°™ë‹¤ë©´ ë‘ ì ì‚¬ì´ ê±°ë¦¬ê°€ ë¨¼ ê²ƒì„ ë¨¼ì € ì±„íƒ)
 				if(twist[i] == num+10){
 					continue;
 				}
@@ -72,18 +71,19 @@ public class q2352_semiconductor {
 					}
 				}
 			}
+
 			
-			twist[bigTwist] = num+10;		//Ã¤ÅÃµÈ ¼± Áö¿ì±â. (¿©±â¼± num+10ÀÇ °ªÀ» °¡Áö¸é ¾ø¾îÁö´Â °ÍÀ¸·Î Á¤ÀÇ)
+			twist[bigTwist] = num+10;		//ì±„íƒëœ ì„  ì§€ìš°ê¸°. (ì—¬ê¸°ì„  num+10ì˜ ê°’ì„ ê°€ì§€ë©´ ì—†ì–´ì§€ëŠ” ê²ƒìœ¼ë¡œ ì •ì˜)
 			
-			for(int i=0 ; i<num ; i++){		//²¿ÀÎ ¼±ÀÇ °³¼ö ÃÊ±âÈ­
+			for(int i=0 ; i<num ; i++){		//ê¼¬ì¸ ì„ ì˜ ê°œìˆ˜ ì´ˆê¸°í™”
 				if(twist[i] != num+10){
 					twist[i] = 0;
 				}
 			}
 			
-			for(int std=0 ; std<num ; std++){	//°¢ Á¡ ¸¶´Ù ²¿ÀÎ ¼±ÀÇ °³¼ö ´Ù½Ã ¾Ë¾Æ³»±â.
+			for(int std=0 ; std<num ; std++){	//ê° ì  ë§ˆë‹¤ ê¼¬ì¸ ì„ ì˜ ê°œìˆ˜ ë‹¤ì‹œ ì•Œì•„ë‚´ê¸°.
 				
-				if(twist[std]==num+10){		//¸¸¾à Áö¿öÁø ¼±ÀÌ¶ó¸é ³Ñ°Ü¶ó
+				if(twist[std]==num+10){		//ë§Œì•½ ì§€ì›Œì§„ ì„ ì´ë¼ë©´ ë„˜ê²¨ë¼
 					continue;
 				}
 				
@@ -109,7 +109,7 @@ public class q2352_semiconductor {
 			if(check == 0){
 				for(int i=0 ; i<num ; i++){
 					if(twist[i] == 0){
-						count--;
+						count++;
 					}
 				}
 				break;
