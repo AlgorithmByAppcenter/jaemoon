@@ -4,25 +4,25 @@ public class q2905_fence {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 
-		int N,X; 	//NÀº ³ÎºşÁö ¼ö , X´Â ·Ñ·¯ÀÇ ³Êºñ
+		int N,X; 	//Nì€ ë„ë¹¤ì§€ ìˆ˜ , XëŠ” ë¡¤ëŸ¬ì˜ ë„ˆë¹„
 		N = scan.nextInt(); X = scan.nextInt();
 		
 		int count = 0;
 		int whileNum = 0;
-		int[] nHei = new int[N+10];	//³ÎºşÁö ³ôÀÌ Á¤ÀÇ
-		int[] minHei = new int[N+10]; //°¢ ±âÁØÁ¡¿¡¼­ ÃÖ¼Ò³ôÀÌ¸¦ Á¤ÀÇ.
+		int[] nHei = new int[N+10];	//ë„ë¹¤ì§€ ë†’ì´ ì •ì˜
+		int[] minHei = new int[N+10]; //ê° ê¸°ì¤€ì ì—ì„œ ìµœì†Œë†’ì´ë¥¼ ì •ì˜.
 		
 		int notRollerWidth = 0;
 		
-		for(int i=0 ; i<N ; i++){			//³ÎºşÁöÀÇ ³ôÀÌ¸¦ ¹Ş¾Æ¿Â´Ù.
+		for(int i=0 ; i<N ; i++){			//ë„ë¹¤ì§€ì˜ ë†’ì´ë¥¼ ë°›ì•„ì˜¨ë‹¤.
 			nHei[i] = scan.nextInt();
 		}
 		
-		for(int i=0 ; i<N; i++){		//ÃÖ¼Ò³ôÀÌ ÃÊ±âÈ­
+		for(int i=0 ; i<N+10; i++){		//ìµœì†Œë†’ì´ ì´ˆê¸°í™”
 			minHei[i] = nHei[i];
 		}
 		
-		for(int std=0 ; std<N-X+1 ; std++){				//N-X+1 ±îÁö, °¢ ±âÁØÁ¡¿¡ µû¸¥ ÃÖ¼Ò³ôÀÌ¸¦ ±¸ÇÑ´Ù.
+		for(int std=0 ; std<N-X+1 ; std++){				//N-X+1 ê¹Œì§€, ê° ê¸°ì¤€ì ì— ë”°ë¥¸ ìµœì†Œë†’ì´ë¥¼ êµ¬í•œë‹¤.
 			for(int target=std ; target<std+X; target++){
 				if(minHei[std]>=nHei[target]){
 					minHei[std] = nHei[target];
@@ -32,8 +32,11 @@ public class q2905_fence {
 		
 		do{
 			int tempo = minHei[whileNum];
-			for(int i=whileNum ; i<whileNum+X ; i++){			//·Ñ·¯¸¦ Ä¥ÇÏ°í, ±× Ä¥ÇÑ ³ôÀÌ¸¦ ÁöÁ¤
-				if(minHei[i]<minHei[whileNum]){
+			for(int i=whileNum ; i<whileNum+X ; i++){			//ë¡¤ëŸ¬ë¥¼ ì¹ í•˜ê³ , ê·¸ ì¹ í•œ ë†’ì´ë¥¼ ì§€ì •
+				if(whileNum!=0 && minHei[whileNum-1]==nHei[whileNum]){
+					minHei[whileNum] = minHei[whileNum-1];
+				}
+				if(minHei[i]<=minHei[whileNum]){
 					minHei[i] = tempo;
 				}
 			}
@@ -41,10 +44,10 @@ public class q2905_fence {
 			
 			int temp = whileNum;
 			
-			for(int i = whileNum ; i<whileNum+X ; i++){ //ÃÖ¼Ò³ôÀÌ°¡ ´Ù¸¥ °÷ÀÌ ¹ß°ß µÆÀ» ¶§, ±×ÂÊÀ¸·Î ÀÌµ¿ÇØ¶ó.
+			for(int i = whileNum ; i<whileNum+X ; i++){ //ìµœì†Œë†’ì´ê°€ ë‹¤ë¥¸ ê³³ì´ ë°œê²¬ ëì„ ë•Œ, ê·¸ìª½ìœ¼ë¡œ ì´ë™í•´ë¼.
 				
 				if(i>N-X+1){
-					for(int a= N-X+1 ; a<N ; a++){				//³¡ºÎºĞ ÃÖ¼Ò³ôÀÌ Á¤ÀÇ
+					for(int a= N-X+1 ; a<N ; a++){				//ëë¶€ë¶„ ìµœì†Œë†’ì´ ì •ì˜
 						if(nHei[a]>=minHei[a-1]){
 							minHei[a] = minHei[a-1];
 						}
@@ -63,7 +66,7 @@ public class q2905_fence {
 				}
 			}
 			
-			if(whileNum == temp){			//¸¸¾à ³ôÀÌ°¡ ÀÏÁ¤ÇÏ´Ù¸é, °Ç³Ê¶Ù¾î¶ó
+			if(whileNum == temp){			//ë§Œì•½ ë†’ì´ê°€ ì¼ì •í•˜ë‹¤ë©´, ê±´ë„ˆë›°ì–´ë¼
 				if(whileNum+X>=N-X+1 && whileNum+X<N){
 					whileNum = whileNum+X;
 					count++;
@@ -78,7 +81,7 @@ public class q2905_fence {
 		} while(whileNum<N-X+1); 
 		
 		
-		for(int i= N-X+1 ; i<N ; i++){			//³¡ºÎºĞ ÃÖ¼Ò³ôÀÌ Á¤ÀÇ
+		for(int i= N-X+1 ; i<N ; i++){			//ëë¶€ë¶„ ìµœì†Œë†’ì´ ì •ì˜
 			if(nHei[i]>=minHei[i-1]){
 					minHei[i] = minHei[i-1];
 			}
@@ -91,7 +94,7 @@ public class q2905_fence {
 			}
 		}
 		
-		if(whileNum<N && whileNum>=N-X+1){		//¸¸¾à ³¡ºÎºĞÀÌ Á¡Á¡ ÀÛ¾ÆÁö´Â °æ¿ì¶ó¸é, count++
+		if(whileNum<N && whileNum>=N-X+1){		//ë§Œì•½ ëë¶€ë¶„ì´ ì ì  ì‘ì•„ì§€ëŠ” ê²½ìš°ë¼ë©´, count++
 			for(int i=whileNum ; i<N ; i++){
 				for(int j=i+1 ; i<j+1 ; i++){
 					if(minHei[i]>minHei[j] && i!=N-1){
@@ -102,10 +105,13 @@ public class q2905_fence {
 			}
 		}
 		
-		for(int i=0; i<N;i++){			//³ĞÀÌÀÇ ÃÖ¼Ú°ª ±¸ÇÏ±â
+		for(int i=0; i<N;i++){			//ë„“ì´ì˜ ìµœì†Ÿê°’ êµ¬í•˜ê¸°
 			notRollerWidth += (nHei[i] - minHei[i]);
 		}
 		
+		for(int i=0 ; i<N;i++){
+			System.out.println("ìµœì†Œ " + minHei[i]);
+		}
 		System.out.println(notRollerWidth);
 		System.out.println(count);
 	}
